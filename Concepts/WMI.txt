@@ -1,0 +1,16 @@
+---------------------------------------------------------------------
+				Windows Management Instrumentaion
+---------------------------------------------------------------------
+
+--WMI is a Microsoft infrastructure for management data and operations in windows based operating systems.
+--WMI is a part of Microsoft Management Toolkit
+--It contains a suite of tools adn extensions which provides network 
+admins to perform several administrative tasks over windows devices 
+on a distributed network.
+--allows to retrive and manage info of windows
+
+purpose:
+-managing remote computers system
+-obtain management data from remote systems
+-scripting can able to get data from windows
+-mainly for Enterprise tools

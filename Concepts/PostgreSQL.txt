@@ -1,0 +1,105 @@
+--------------------------------------------------------------------
+							PostgreSQL
+--------------------------------------------------------------------
+
+REF: https://www.postgresqltutorial.com/what-is-postgresql/
+
+--PostgreSQL is an advanced, enterprise-class, and open-source
+relational database system. 
+--PostgreSQL supports both SQL and JSON querying.
+
+--
+SELECT
+   select_list
+FROM
+   table_name;
+
+--
+ SELECT column_name AS alias_name
+FROM table_name;
+
+--
+SELECT
+	select_list
+FROM
+	table_name
+ORDER BY
+	sort_expression1 [ASC | DESC],
+        ...
+	sort_expressionN [ASC | DESC];
+
+--
+SELECT
+   DISTINCT column1
+FROM
+   table_name;
+
+
+--
+SELECT
+   DISTINCT ON (column1) column_alias,
+   column2
+FROM
+   table_name
+ORDER BY
+   column1,
+   column2;
+
+--
+SELECT select_list
+FROM table_name
+LIMIT row_count OFFSET row_to_skip;
+
+
+FETCH vs. LIMIT
+The FETCH clause is functionally equivalent to the LIMIT clause. If you plan to make your application compatible with other database systems, you should use the FETCH clause because it follows the standard SQL.
+
+--
+OFFSET start { ROW | ROWS }
+FETCH { FIRST | NEXT } [ row_count ] { ROW | ROWS } ONLY
+
+Percent sign ( %) matches any sequence of zero or more characters.
+Underscore sign ( _)  matches any single character.
+
+
+
+--------------------------------------------------------------------
+
+                            JOINS
+
+
+https://www.postgresqltutorial.com/postgresql-joins/
+
+https://sp.postgresqltutorial.com/wp-content/uploads/2018/12/PostgreSQL-Joins.png
+---
+PostgreSQL inner join
+The following statement joins the first table (basket_a) with the second table (basket_b) by matching the values in the fruit_a and fruit_b columns:
+
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+INNER JOIN basket_b
+    ON fruit_a = fruit_b;
+
+---
+PostgreSQL inner join
+The following statement joins the first table (basket_a) with the second table (basket_b) by matching the values in the fruit_a and fruit_b columns:
+
+SELECT
+    a,
+    fruit_a,
+    b,
+    fruit_b
+FROM
+    basket_a
+INNER JOIN basket_b
+    ON fruit_a = fruit_b;
+
+
+---
+
+

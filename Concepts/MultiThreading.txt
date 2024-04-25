@@ -1,0 +1,216 @@
+--------------------------------------------------------------------
+							Multi Threading
+--------------------------------------------------------------------
+
+--Executing several tasks simultaneously is called multi tasking
+
+--------------------------------------------------------------------
+		Multi process				Multi thread
+--------------------------------------------------------------------
+-executing several tasks at a   -executing several tasks at a time 
+time where each task is a 		where each task is separate 
+separate independant program.	independant_part(thread) of 
+								same program.
+
+-context switching high time	-less
+
+-separate address space.		-shares	address space	
+--------------------------------------------------------------------
+
+purpose:
+--to increase performance by reducing the idle time of processor
+
+application of multi threading are:
+--to develop multimedia graphics
+--to delevop video games
+--to develop web and application servers
+
+Advantages:
+--threads are independent
+--exception in one thread does not affect other
+
+THREAD:
+	--thread is a separate path of execution
+	--independent
+	--shared memory
+
+Every java program have a default thread - main thread
+
+Thread class:
+	--thread class is used to create a thread
+	--thread class extends object class and implements runnable interface
+
+METHODS:
+
+void start()
+	{
+		-reg this thread with thread scheduler
+
+		-moves from new state to runnable state
+
+		-invole run()
+	}
+
+void run()
+	--the code sepcified in run method is executed
+	--start() of a thread can be called only once,,
+		run() can be called any times
+
+void sleep(long milis , //int nanos)
+	--used to sleep a thread for specified time
+
+Thread currentThread()
+	--returns reference of current thread
+
+void join(//long millis,//int nanos)
+	--waites for a thread to die
+
+int getPriority()  // default priority is 5
+void setPriority()
+
+String getName()
+void setName()
+
+void yield()
+	--causes current thread to pause and allows other waiting threads to execute
+
+void suspend()
+	--puts thread from running state to waiting state
+	--pauses the thread
+	--it is resumed by resume() method
+
+void resume()
+	--used only with suspend() method
+
+void stop(//Throwable obj)
+	--terminates a thread permenently
+	--cannot be resumed or restarted
+
+void destroy()
+	--destroy a thread group and its sub groups
+
+getState()
+getThreadGroup()
+
+void notify()
+	--gives notification for a thread waiting for a object
+
+void notifyAll()
+	--notifies all threads waiting for a particular object
+
+
+--------------------------------------------------------------------
+Life cycle of thread:
+--According to Sun, there are only 4 states 
+	-new
+	-runnable
+	-non runnable
+	-terminated
+for better understanding 'waiting' state is assumed	
+
+--------------------------------------------------------------------
+Two ways of defining thread:
+--by extending thread class
+--by implementing Runnable interface
+
+THREAD Class:
+	extends object class and implements runnable interface
+provides constructors and methods for thread,
+	Thread()
+	Thread(String name)
+	Thread(Runnable r)
+	Thread(Runnable r, String name)
+	and so on..
+
+Methods... //mentioned in first segment
+
+RUNNABLE Interface:
+	--has only run() method
+
+--------------------------------------------------------------------
+Thread Scheduler:
+--the order of execution of thread is decided by Thread Scheduler
+--the scheduling algorithms(fcfs, sjf,..) varies from various JVM..
+--Only one thread at a time can run in a single core
+
+--------------------------------------------------------------------
+Priority of thread:
+--between 1 to 10
+ 
+setPriority():
+	Thread.MIN_PRiORITY
+	Thread.NORM_PRIORITY
+	Thread.MAX_PRIORITY
+
+--------------------------------------------------------------------
+DAEMON thread:
+--low priority thread
+--is a service provider for user thread
+--starts with main thread and ends with it
+
+methods:
+t.setDaemon(true) - set a thread as daemon
+	thread must not be started to set as daemon 
+t.isDaemon()
+
+--------------------------------------------------------------------
+Thread Pool:
+--represents a grp of worker thread waiting for job
+--ready made threads for usage and then returned to the pool
+--and then can be reused
+
+Advantage:
+--better performance (resuseing threads)
+
+Real time usage:
+--Servlet and JSP... container class creates thread pool to process req
+
+--------------------------------------------------------------------
+Thraed Group:
+--group of threads
+--can contain subgroups and form like a tree
+
+Constructor:
+ThreadGroup(String name) 
+ThreadGroup(ThreadGroup parent, String name) - to create child group
+
+--------------------------------------------------------------------
+Deadlock:
+--thread 1 holds an object and waits for an object holded by thread 2 but thread 2 waits for viceversa..
+
+--------------------------------------------------------------------
+Synchronization:
+--controll access of multiple threads of a resource
+
+WHY:
+--to prevent thread interference
+--to pervent consistency prblm
+
+Sync block:
+synchronized (object reference expression) {   
+  //code block   
+}  
+	--used to sync a prticular resource
+
+--------------------------------------------------------------------
+Inter thread comm:
+--allowing sync threads to comm each other
+
+wait()
+--causes current thread to release the lock and wait untill another 
+thread invokes notify()
+
+--------------------------------------------------------------------
+			wait()						sleep()
+--------------------------------------------------------------------
+-releases lock					-does not
+-method of object Class 		-Thread class
+-non static method 				-static
+-notify() to end 				-ends after specified time
+
+--------------------------------------------------------------------
+Interrupting a Thread:
+
+void interrupt()
+boolean interrupted()
+boolean isInterrupted()

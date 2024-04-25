@@ -1,0 +1,57 @@
+--------------------------------------------------------------------
+								TOMCAT
+--------------------------------------------------------------------
+Folder struct:
+
+>bin
+--tomcat's startup scripts
+
+>conf
+--global config applicable for all web apps
+	-1 policy file
+	-2 properties files
+	-4 config XML files
+	-etc..
+
+>lib
+--external jar files
+
+>logs
+--engine log file
+
+>webapps
+--webb application base directory of localhost
+
+>work
+--contains translated servlet source files and classes
+
+>temp
+--temporary files
+
+--------------------------------------------------------------------
+
+ARCHITECTURE:
+
+server
+	-service
+		-Engine
+			-Host
+				-context
+
+--------------------------------------------------------------------
+
+
+Directory structure:
+
+
+
+
+compiling servlet:
+javac -cp "%CATALINA_HOME%\lib\servlet-api.jar";"C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\test2\WEB-INF\lib\postgresql-42.2.19.jar"; -d WEB-INF\classes src\com\webapp\Api.java
+
+creating WAR file:
+jar cvf webapp.war .
+
+
+
+

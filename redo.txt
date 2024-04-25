@@ -1,0 +1,130 @@
+1.
+static block
+
+-a static block is executed when class is loaded in jvm.(even before main method)
+-multiple static blocks are executed in given order
+-values initialized by first block are overwritten by second block
+
+----------------------------------------------------------------
+2.
+does 64bit application works in 32bit processor?
+	No, reverse can be possible
+
+32bit processor can handle 4GB
+64bit processor can handle 16 billion GB
+
+----------------------------------------------------------------
+3.
+legacy classes:
+	dict
+	hashTable
+	properties
+	vector
+	stack
+legacy interface: 
+	enumeration	
+
+----------------------------------------------------------------
+4.
+variable arguments:
+-there can be only one variable argument in a method
+-variable arguments must be the last argument
+-variable argument is specified by [...]
+
+Sample code:
+public class varar
+{
+	static void disp(String s1, int ...s2)
+	{
+		System.out.println(s1);
+
+		for(int i:s2)
+			System.out.print(i+" ");
+		System.out.println();
+	}
+
+	public static void main(String args[])
+	{
+		disp("ya",1,2,3,4,5);
+		disp("sin",1,2);
+	}
+}
+
+----------------------------------------------------------------
+5.
+protected:
+	protected variables can be accessed from 
+		-within class
+		-childclass of same package
+		-non child of same package
+		-**child of dif package** (main dif btw prot and def)
+
+----------------------------------------------------------------
+6.
+Task manager
+CPU - cpu usage of the process
+memory - amount of RAM using currently
+Disk - speed of retriving from disk per second
+GPU - % of gpu used by the process
+GPU engine - shows which GPU the process is using
+power usage - current power usage
+power usage trend - power usage over a time period
+
+----------------------------------------------------------------
+
+7.
+String passing
+-eventhough Strings are passed by reference, they are immutable,so the changes will not be affected in the original string.
+-it can be overcomed by returning the string or by using stringbuffer
+
+
+class test
+{
+	static void change(String str)
+	{
+		str+=" world";
+		System.out.println(str);
+
+	}
+	public static void main(String args[])
+	{
+		String s="Hello";
+		change(s);
+		System.out.println(s);
+
+	}
+}
+OUTPUT:
+Hello world
+Hello
+
+class test
+{
+	static void change(StringBuffer str)
+	{
+		str.append(" world");
+		System.out.println(str);
+
+	}
+	public static void main(String args[])
+	{
+		StringBuffer s=new StringBuffer("Hello");
+		change(s);
+		System.out.println(s);
+
+	}
+}
+OUTPUT:
+Hello world
+Hello world
+----------------------------------------------------------------
+
+thread poool exedence
+thread queue
+shut down hook
+garbage colection
+protocol
+unique key and other keys
+
+password encryption
+No IDE, no 3rd party files

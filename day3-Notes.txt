@@ -1,0 +1,630 @@
+--------------------------------------------------------------------
+							Threads
+--------------------------------------------------------------------
+
+1. Multi Threading in detail. 
+--------------------------------------------------------------------
+		Multi process				Multi thread
+--------------------------------------------------------------------
+-executing several tasks at a   -executing several tasks at a time 
+time where each task is a 		where each task is separate 
+separate independant program	independant_part(thread) of 
+								same program
+	
+-context switching less time	-high
+
+-separate address space			-shares	address space	
+--------------------------------------------------------------------
+
+application of multi threading:
+	-gaming
+	-web server 
+
+1.2-Is multi-threading a property of a language (like java) or a 
+property of OS?
+--Multi threading is a property of hardware.
+--it is the ability of CPU to provide multiple threads 
+simultaneously
+--languages like java provides inbuilt support for multi
+ threading
+--Thread Scheduler is responsible to schedule our threads
+--TS is part of JVM
+--some may follow FCFS, SJF, round robin. (depends on TS)
+
+
+--------------------------------------------------------------------
+2. What is JIT? , why/how it is used? , find out the name of JIT 
+used when you run your java program. 
+
+-Just-in-time compiler
+-jit is a part of JRE
+-converts java bytecode to native machine code
+-code optimization done in run time,perf is increased
+
+drawback:
+-uses lots of cache memory
+
+working:
+	javac compiles java source code to bytecode(.class)
+	JVM loads .class while running
+	this interpretation reduces perf
+	so, JIT converts bytecode to native machine code
+
+there are two tyoes of jit compilers:
+--C1 is designed to run faster and produce less optimized code, 
+--while C2, on the other hand, takes a little more time to run but produces a better-optimized code
+
+to view the JIT name:
+java -XX:+UnlockDiagnosticVMOptions -XX:LogCompilation MyClass
+
+in the file..
+<nmethod compile_id='2' compiler='C1' level='3' ...
+
+C1 is the JIT used
+
+--------------------------------------------------------------------
+3.Try enable and disable JIT and checkout the results (Write a 
+bubble sort program to sort 10000 numbers with and without JIT!)
+
+To run java program by disabling JIT,
+	'-Xint' while running the class
+		java -Xint ClassName
+
+***program folder: s1q3
+
+The above program runs
+	4759 Milli seconds without JIT
+and 415 Milli seconds with JIT
+
+
+--------------------------------------------------------------------
+4. How do you create a Thread from java (Write a program!).
+
+Two ways to create a thread.
+	-by extending thread class
+		Thread t = new mythread();
+	-by implementing Runable interface (best approach)
+		mythread2 t1 = new mythread();
+		Thread t2 = new Thread(t1);
+		Thread t3 = new Thread(t1);
+
+--------------------------------------------------------------------
+		Thread class 					Runnable Interface
+--------------------------------------------------------------------
+-cannot extend other classes		-can extend other class
+
+-start(),yield(), interupt(),, etc 	-only run()
+
+-each thread creates unique  		-multiple threads share 
+ object								 same object
+--------------------------------------------------------------------
+
+***program folder : s1q4
+
+
+--------------------------------------------------------------------
+5. How do you name a thread? and why it is useful?
+
+-public String getName() 
+	to get the thread name
+
+-public void setName(String name) 
+	to set the thread a user defined name.
+	by default the thread name starts with
+		Thread-0, Thread-1, ...
+
+-public static Thread currentThread()
+	returns the reference of the currently executing thread.
+
+Naming a thread is usefull in identifying a thread and debugging code.
+
+
+
+--------------------------------------------------------------------
+6. Find out how computers communicate.
+
+--computer communicate through TCP/IP protocols
+--it acts as set of rules for communication
+--ISP provides unique IP address for computers to commuicate through
+internet
+
+
+--------------------------------------------------------------------
+7. What happens when you enter a web site in your browser and fetch
+ it.
+
+--when we enter a website,
+--the browser loops for IP address for the domain name via DNS
+--then HTTPrequest to corresponding server
+--it returns resource as HTTPResponse
+--browser renders the html page and displays 
+
+
+--------------------------------------------------------------------
+8. Write a program to check whether a port(eg.LDAP port) is opened 
+or not.
+
+import java.util.Scanner;
+import java.net.Socket;
+class q8
+{
+	public static void main(String args[])
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter a port number:");
+		int inp = sc.nextInt();
+		try
+		{
+			Socket s1 = new Socket("localhost",inp);
+			System.out.println("The port "+inp+" is listening!");
+			s1.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println("The port is closed");
+		}
+	}
+}
+
+***program folder:s1q8
+
+--------------------------------------------------------------------
+9. Write a program to resolve the host name of PC, if IP is provided
+
+
+import java.io.*; 
+import java.net.*; 
+import java.util.Scanner;
+class q9 { 
+	public static void main(String[] args) 
+	{ 
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter an IP adress : "); 
+		String str = sc.nextLine();
+		try { 
+			InetAddress addr = InetAddress.getByName(str); 
+
+			System.out.println("Ip address is: "+ addr.getHostAddress()); 
+			System.out.println("Host name is: "	+ addr.getHostName()); 			
+		} 
+		catch (UnknownHostException e) { 
+			System.out.println(e); 
+		} 
+	} 
+}
+
+***program folder:s1q9
+
+
+--------------------------------------------------------------------
+10. Write a program which will run another java program (you will
+ have to invoke the "java xyz" from this program!) get the output of the program and print it to a file.
+
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;	
+public class q10
+{
+	public static void main(String args[]) throws IOException
+	{
+		Process pr = Runtime.getRuntime().exec("java q3.java");
+		BufferedInputStream inp = new BufferedInputStream(pr.getInputStream());
+		FileOutputStream fp = new FileOutputStream("output.txt");
+		fp.write(inp.readAllBytes()); //output is written in output.txt file
+		inp.close();
+		fp.close();
+	}
+}
+
+***program folder:s1q10
+
+--------------------------------------------------------------------
+11. Write a program which will run your string reverse java program
+ (you will have to invoke the "java Reverse" from this program!)
+  give the input to the Reverse program from this program and get
+   the output and print the output to a file.
+
+import java.io.IOException;
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
+import java.util.Scanner;
+
+public class q11
+{
+	public static void main(String args[]) throws IOException
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the string : ");
+		String st = sc.nextLine();
+
+		Process pr = Runtime.getRuntime().exec("java StRev "+st);
+		BufferedInputStream inp = new BufferedInputStream(pr.getInputStream());
+		FileOutputStream fp = new FileOutputStream("output.txt");
+
+		fp.write(inp.readAllBytes());
+
+		inp.close();
+		fp.close();
+	}
+}
+
+***program folder:s1q11
+
+
+--------------------------------------------------------------------
+12.Write a program to open Internet Explorer from java without addons
+
+class q12
+{
+	public static void main(String args[]) throws Exception
+	{
+		Process browser = Runtime.getRuntime().exec("C:\\Program
+		 Files\\Internet Explorer\\iexplore.exe");
+
+	}
+}
+
+***program folder: s1q12
+
+--------------------------------------------------------------------
+13. Convert iterative server program to concurrent server program 
+using threads (TCP/UDP) , each client should be serviced by a 
+separate thread in the server.
+
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.io.IOException;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
+public class q13
+{
+	public static void main(String args[]) throws IOException
+	{
+		ServerSocket ssk = new ServerSocket(10000);
+		Socket s1;
+		int threadNum=1;
+		while((s1=ssk.accept())!= null)
+		{
+			Thread t = new Thread(new MyServer(s1,"thread-"+threadNum));
+			t.start();
+			threadNum++;
+		}
+	}
+}
+
+class MyServer implements Runnable
+{
+	Socket sk;
+	String name;
+	MyServer(Socket s1, String s2)
+	{
+		this.sk=s1;
+		this.name=s2;
+	}
+
+	public void run()
+	{
+		try
+		{
+			DataInputStream din = new DataInputStream(sk.getInputStream());
+			DataOutputStream dout = new DataOutputStream(sk.getOutputStream());
+			dout.writeUTF(this.name);
+			System.out.println("A client is serviced by server "+this.name);
+			din.close();
+			dout.close();
+		}
+		catch(Exception e)
+		{
+			System.out.print("Error in server");
+		}
+		
+	}	
+
+}
+
+class Client
+{
+	public static void main(String args[]) throws IOException
+	{
+		Socket sk = new Socket("localhost",10000);
+		DataInputStream din = new DataInputStream(sk.getInputStream());
+		DataOutputStream dout = new DataOutputStream(sk.getOutputStream());
+		String temp = din.readUTF();
+		System.out.print("Connected to sever "+temp);
+		din.close();
+		dout.close();
+		
+	}
+}
+
+***program foler: s1q13
+
+--------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------
+							JNI CPP
+--------------------------------------------------------------------
+1.What is JNI?
+
+
+Java Native Interface:
+-java code that runs in JVM and able to interoperate with applications
+and libraries written in other programming languages like c,c++,..
+--using existing libs of other languages
+--java compiler accepts the methods which are declared as 'native',
+to be loaded to JVM at run time.
+
+IMP BENEFIT:
+--no restriction on the implementation of underlying JVM
+--any version of native application works in all JVMs
+
+Pros:
+	-code reuseability
+	-performance
+	
+Procedure:
+--create a java file with native method,
+--compile it with
+	javac -h . fileName.java
+--a headerfile(.h) will be generated with declaration of that
+ native method
+--now a c++ program that implements the native method is created
+--compile the c++ program with following syntax
+	
+	x86_64-w64-mingw32-g++ -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -shared -o libName.dll fileName.cpp
+	
+	--'x86_64-w64-mingw32-g++' is gcc compiler of cygwin
+	-- '-I<DirName>' for jni.h and jni_md.h from JDK
+	-- '-shared' to generate a lib
+	-- '-o fileName.dll' for declaring the filename of the lib
+	-- 'fileJame.cpp' to compile the cpp file
+--java className for running java class
+
+
+--------------------------------------------------------------------
+2.How to load a DLL in java.
+&
+3.How will you create a native method header? 
+
+DLL:Dynamic Link Libraries
+-static libraries(.lib) are loaded at compile time..
+-dynamic libraries(.dll) are loaded at run time..
+
+two ways to load DLL:
+--System.loadLibrary("lin_name");
+	to load lib from a default path
+--Sytem.load("c:/path/to/dll_file.dll");
+	to load lib by giving path
+
+
+Native methods:
+--compile the java code containing native method as 
+	javac -h . FileName.java
+--a header file(.h) is created in the same directory 
+--C function will be auto generated in the format of 
+	JNIEXPORT void JNICALL Java_<className>_<methodName>(JNIEnv *,
+													jobject);
+		JNIEnv * - reference to JNI env variables
+		jobject - refers this object.. (like 'this' keyword in java)
+
+program folder:s2q2 
+
+
+--------------------------------------------------------------------
+4.How to pass a variable to native CPP code?
+&
+5.How to return a value from native to a java class?
+
+In JNI, the java primitive variables are defined in a format of 
+	j<type>
+		ex: jint, jfloat, ..
+
+To pass a variable from java to cpp:
+	-can pass the variables through parameters of a netive method
+	   private native return_type methodName(int a, int b);
+	-and received from cpp file as
+		JNIEXPORT return_type JNIC....... (JNIEnv *env, jobject 
+											jobj, jint a, jint b); 
+
+To pass a variable from cpp to java:
+	-returning a value at the end of function call
+		return var;
+	-can get teh variables in java as return value of a normal java 
+	methods..
+
+program folder : s2q4
+
+
+--------------------------------------------------------------------
+6.Write a program to collect windows eventlogs using WMI using JNI 
+code?
+
+Windows Management Instrumentation:(WMI)
+--infrastructure for management of windows based system
+--WMI is developed for programmers who can use c/c++, vb or other scripting languages to communicate with WMI to discover and perform
+management tasks like..
+	--get info about the system and remote network
+	--configure system properties
+	--process schedule..
+
+
+
+
+--------------------------------------------------------------------
+
+--------------------------------------------------------------------
+							SQL
+--------------------------------------------------------------------
+1. Download and configure postgres. 
+
+PostgreSQL:
+-powerfull
+-open source
+-relational DBMS
+
+Some common Data types:
+-int
+	integer values - 4 bytes
+-real
+	decimal - 4 bytes
+-money
+	spl for money - 8 bytes
+-varchar(n)
+	char with length n
+-text
+	char with unlimited length
+-date
+	date 4 bytes YYYY-MM-DD
+-boolean
+	1 byte true or false
+
+Enumerated datatype:
+	works as enum in programming languages
+
+network address types:
+	for IPv4, IPv6, MAC etc.
+
+and many and many and manyyyyyy....
+
+general commands:
+\l  		- list of databases
+\c dbname 	- connect to a database
+\d  		- list of tables
+\d tableName- describe table
+\q 			- quit
+
+
+--------------------------------------------------------------------
+2) Create a table and run basic CRUD queries  
+( https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
+#Database_applications )
+
+CRUD:
+
+CREATE TABLE table_name(
+   column1 datatype,
+   column2 datatype,
+   column3 datatype,
+   .....
+   columnN datatype,
+   PRIMARY KEY( one or more columns )
+);
+
+
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+
+
+SELECT * 
+FROM table_name
+WHERE conditions
+ORDER BY columnName
+LIMIT num_of_rows;
+
+
+UPDATE table_name
+SET column1 = value1,
+	column2 = value2, ...
+WHERE conditions;
+
+
+DELETE FROM table_name
+WHERE conditions;
+
+Some other claueses..
+LIKE clause:
+_ - one position
+% - 0 or more positions
+
+
+LIMIT Clause:
+limit - num of rows
+offset - starts from
+
+orderby, groupby,, etc..
+
+Some usefull functions
+-count
+-min
+-max
+-avg
+-sum
+
+--------------------------------------------------------------------
+3) What is Primary key and foreign key? Create tables using foreign
+ keys.
+
+Primary key:
+-pk is a value that uniquely identifies each rows
+
+Foreign key:
+-values of this column must match the primary key of another table
+-making relationship between two tables
+
+conditions:
+	-1 table should contain PK
+	-another should contain FK
+	-a common column in both tables
+	-datatype of common columns must be same
+
+--------------------------------------------------------------------
+4) Run sql queries which will join two tables ( inner join, outer
+ join, left join etc..,)
+
+PostgreSQL supports
+-inner join
+-left join
+-right join
+-left outer join
+-right outer join
+-full join
+-full outer join
+-cross join
+-natural join
+-self join
+
+
+--------------------------------------------------------------------
+5) Run queries with group by clause. 
+
+SELECT 
+   column_1, 
+   column_2,
+   ..
+FROM 
+   table_name
+GROUP BY 
+   column_1,
+   column_2,
+   ...;
+
+
+--------------------------------------------------------------------
+
+--------------------------------------------------------------------
+							Web Programming
+--------------------------------------------------------------------
+SQL + Tomcat Server + Postgres + Javascript
+1) Create a simple form to add / delete and update the following
+ credential data to server. Server should receive the data and 
+ update to DB.
+     The credential data includes the following fields.
+             DeviceName, Username, Password
+     Encrypt the password and store it to DB.
+     Display the list in index page and add the following options 
+     to the credentials. 
+         	Add credential -- Add a new credential
+            Update credential -- update the credential
+            Delete the credential -- delete the credential
+    All the ADD / Delete /Update should happen asynchronously.
+     ( AJAX requests)
+
+
+
+
+
+
+--------------------------------------------------------------------

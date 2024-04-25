@@ -1,0 +1,62 @@
+>thraed poool exedence
+--need to wait for free thread
+
+
+>thread queue
+
+
+>shut down hook
+--code executed when JVM is shutting down
+--cleanup operations	
+
+
+>garbage colection
+--destroying unused objects
+--finalize() method is called before garbage collected
+
+
+>protocol
+--standard set of rules
+--tcp, udp, http, snmp, smtp,...
+
+>primary key
+--does not allow null
+--can have 1 primary key constraint
+
+>unique key
+--unique key allows one null value
+--can have many uniique key constraint
+
+password encryption
+No IDE, no 3rd party files
+
+
+
+C:\Program Files\apache-tomcat-7.0.108\lib
+
+javac -cp "%CATALINA_HOME%\lib\servlet-api.jar";"C:\Program Files\apache-tomcat-7.0.108\webapps\test1\WEB-INF\lib\postgresql-42.2.19.jar"; -d WEB-INF\classes src\com\webapp\HomePage.java
+
+
+javac -cp "%CATALINA_HOME%\lib\servlet-api.jar";"C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\test2\WEB-INF\lib\postgresql-42.2.19.jar"; -d WEB-INF\classes src\Api.java
+
+javac -cp "%CATALINA_HOME%\lib\servlet-api.jar"; DemoServlet.java
+
+jar cvf webapp.war .
+
+
+
+
+
+port of http and https
+
+
+
+
+
+
+
+
+
+
+
+C:\Program Files\Common Files\Oracle\Java\javapath

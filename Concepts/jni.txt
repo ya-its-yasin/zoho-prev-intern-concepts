@@ -1,0 +1,80 @@
+--------------------------------------------------------------------
+					Java native Interface
+--------------------------------------------------------------------
+
+-java code that runs in JVM and able to interoperate with applications and libraries written in other programming languages like c,c++,..
+
+IMP BENEFIT:
+--no restriction on the implementation of underlying JVM
+--any version of native application works in all JVMs
+
+Java Native Interface:
+--allows java to interact with code written in another lang.
+--using existing libs of other languages
+--JNI allows java program to run in JVM and interact with 
+applications and libraries of other language.
+--java compiler accepts the methods which are declared as 'native',
+to be loaded to JVM at run time.
+
+Pros:
+	-code reuseability
+	-performance
+	
+Procedure:
+--create a java file with native method,
+--compile it with
+	javac -h . fileName.java
+--a headerfile(.h) will be generated with declaration of that
+ native method
+--now a c/c++ program that implements the native method is created
+--compile the c++ program with following syntax
+	
+	x86_64-w64-mingw32-g++ -I"%JAVA_HOME%\include" -I"%JAVA_HOME%\include\win32" -shared -o libName.dll fileName.cpp
+	
+	--'x86_64-w64-mingw32-g++' is gcc compiler of cygwin
+	-- '-I<DirName>' for jni.h and jni_md.h from JDK
+	-- '-shared' to generate a lib
+	-- '-o fileName.dll' for declaring the filename of the lib
+	-- 'fileJame.cpp' to compile the cpp file
+--java className for running java class
+
+
+DLL:Dynamic Link Libraries
+-static libraries(.lib) are loaded at compile time..
+-dynamic libraries(.dll) are loaded at run time..
+
+two ways to load DLL:
+--System.loadLibrary("lin_name");
+	to load lib from a default path
+--Sytem.load("c:/path/to/dll_file.dll");
+	to load lib by giving path
+
+
+Native methods:
+--compile the java code containing native method as 
+	javac -h . FileName.java
+--a header file(.h) is created in the same directory 
+--C function will be auto generated in the format of 
+	JNIEXPORT void JNICALL Java_<className>_<methodName>(JNIEnv *,
+													jobject);
+		JNIEnv * - reference to JNI env variables
+		jobject - refers this object.. (like 'this' keyword in java)
+
+
+
+In JNI, the java primitive variables are defined in a format of 
+	j<type>
+		ex: jint, jfloat, ..
+
+To pass a variable from java to cpp:
+	-can pass the variables through parameters of a netive method
+	   private native return_type methodName(int a, int b);
+	-and received from cpp file as
+		JNIEXPORT return_type JNIC....... (JNIEnv *env, jobject 
+											jobj, jint a, jint b); 
+
+To pass a variable from cpp to java:
+	-returning a value at the end of function call
+		return var;
+	-can get teh variables in java as return value of a normal java 
+	methods..

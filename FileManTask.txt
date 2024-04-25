@@ -1,0 +1,203 @@
+Create a web application for File Management
+
+--When a file is uploaded, the file should be split into random(minimum 5) pieces and stored in remote locations with encryption.
+User should be able to see the list of files he have uploaded and there should be an option to download the same.
+
+--During download all the pieces should be combined and the user should get the original file.
+
+--Provide an option for the number of files to be split. By default, random pieces.
+
+--Use parallel processing for efficiency.
+
+--Additional functionality can be given for admin alone to configure node machine and locations.
+
+--------------------------------------------------------------
+
+(FileMan v1) -----done
+step1: Login and home page for users
+	-user database
+	-servlet
+	-front end
+	-register (admin_action)
+	-login
+
+(FPrac v1) --------done
+step2: File handling practice 
+	-upload file
+	-store file
+	-download file
+
+(FPrac v2) -----done
+step3:
+	-encrypt, decrypt files
+
+(FileMan v2) -------done
+step4:
+	-integrate FPrac v2 
+	
+
+(Sprac v1) -------done
+step5: splitting module
+	-File pieces
+	-retrive pieces
+
+(FPrac v3) ------done
+step6:
+	-integrate sprac v1
+
+(FileMan v3) --------done
+step7:
+	-integrate FPrac v3
+
+(FileMan v4) -------done
+step8:
+	-connect filelist table
+
+(FileMan v5) --------done
+step9:
+	-clean the code
+
+(FileMan v6) -------done
+step10: location module
+	-store in diff locations
+	-retrive
+
+(FPrac v4) -------done
+step11:
+	-parallel processing
+	
+(FileMan v7) -----done
+step12:
+	-integrated parallel processing 
+
+(FileMan v8)  ----done
+step 13:
+	-changed file encryption algorithm
+	
+(FileMan v9) ----done
+step14:
+	-location updates
+	-clean code
+
+*************** finalized version -- FileMan v9 *****************
+
+(FileMan v10) 
+step15:
+	-remote locations
+
+
+----------------------------------------------------------------
+
+
+CLASS - LoginModule:
+LoginModule():
+	--constructor used to create connection with the database.
+
+doPost():
+	--gets username and password from index.html , checks with the 'users' table in database and moved to next page accordingly.
+
+
+CLASS - AdminHome:
+AdminHome():
+	--used to create connection with the database.
+
+doPost():
+	--gets username and password from 'admin_homepg.html' and inserts into the 'users' table.
+
+doGet():
+	--collected all the users in tha 'users' table and sends json data to 'admin_homepg.html' for displaying the table.
+
+doDelete():
+	--gets username from 'admin_homepg.html' and deletes the record in the 'users' table.
+
+
+CLASS - AdminAddLoc:
+AdminAddLoc():
+	--used to create connection with the database.
+
+doPost():
+	--collected all the file pieces
+	--gets location from 'admin_homepg.html' and inserts into 'locations' table.
+	--updated the locations list.
+	--distribute all file pieces evenly to the list of locations available.
+
+doGet():
+	--collects all the records from 'locations' table in database and sends to 'admin_homepg.html'.
+
+doDelete():
+	--collects all the file pieces.
+	--deletes a given location in the 'locations' table.
+	--updates the locations list.
+	--distribute all the file pieces evenly to the list of available locations.
+
+collectAll():
+	--collects all the files(using collectOne()) from all the locations and store in a temporary location.
+
+collectOne():
+	--collects all the pieces of a single file.
+
+distributeAll()
+	--distributes all the files (using distributeOne()) to the available locations.
+
+distributeOne()
+	--distributes all pieces of a single user file.
+
+updatePaths():
+	--selects all the locations from 'locations' table and store in an arrayList for processing.
+
+
+CLASS - UserDisplay:
+UserDisplay():
+	--create connection with the database.
+
+doGet():
+	--selects all the file names uploaded by the current user and sends the data to 'user_homepg.html'.
+
+
+CLASS - UserUpload:
+UserUpload():
+	--creates connection with the database.
+	--and update the locations Arraylist
+
+doPost():
+	--gets the uploading file as multipart data from 'user_homepg.html' and store the filename in 'filelist' table
+	--then, splits the file into decided number of pieces
+	--then a parallel stream is created and all the pieces are encrypted parallelly.
+
+SplitFile(int NumOfPieces):
+	--reads the file with a length of 
+			length = fileSize / NumOfPieces
+	--and continuously creates new file and store the read data.
+	--deletes the original file uploaded by the user.
+
+fileProcessor(int cipherMode, String key, String inputFilename, String outputFileName):
+	--encrypts the file piece using AES algorithm and
+	--deletes the inputFile piece
+
+
+CLASS - UserDownload:
+UserDownload():
+	--creates connection with the database
+	--and updates the location ArrayList
+
+doGet():
+	--gets a fileName from 'user_homepg.html',
+	--updates the List of file pieces using the fileName.
+	--collects all the encrypted file pieces from available locations using doCollect(),
+	--creates a parallel stream and decrypt all the pieces parallelly and
+	--merge the decrypted file and sends to 'user_homepg.html'.
+
+doCollect():
+	--updates the location list and
+	--collects the needed encrypted file pieces from available locations.
+
+fileProcessor(int cipherMode, String key, String inputFileName, String outputFileName):
+	--decrypt the given encrypted file using AES algorithm
+	--and deletes the inputfile
+
+MergeFiles(int NumOfPieces):
+	--reads all the decrypted file pieces and 
+	--creates a fully merged output user file
+
+updatePaths():
+	--updates the locations ArrayList from 'locations' table for  processing

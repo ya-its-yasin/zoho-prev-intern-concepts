@@ -1,0 +1,155 @@
+--------------------------------
+Programming basics - Classpath
+--------------------------------
+1. What is a process and what is a thread? 
+
+A process is a execution of a program.
+It is controlled by process controll block.
+
+thread is a unit of a process.
+needs of threads:
+	using all the cores in CPU
+	multi threading
+thread can be created by extending thread class or implementing runnable interface.
+
+RT: while using a MS word.. typing sentence is a thread and spell check is another thread both works parallelly
+
+
+
+-------------------------------------------------------------
+2. Open Task Manager and observer the running processes and its attributes like  process ID,
+ memory used, CPU used, disk usage, network usage and number of threads. And understand what these numbers mean.
+
+CPU - the mathematical ability of the computer
+MEMORY - RAM, temporary, fast
+DISK - the speed of reading and writing data from hard drive
+NETWORK - computers ability to communicate over network based on network card(the port where data is sent in and out to internet)
+GPU - graphics card
+
+
+
+-------------------------------------------------------------
+3. What are Environmental Variables? Significance of PATH variables 
+
+Envi variable is those whose value is set outside teh program
+i.e operating system
+Each variable has NAME=value
+NAME will be uppercase, value will be string
+any number of envi avriables can be created and used at any point of time.
+primary use is to limit the need of modifying and re-releasing app due to changes in config data.
+
+PATH specifies set of dir where executable codes are located
+PATH contains string of dir separated by semicolon
+
+
+
+
+-------------------------------------------------------------
+4. Difference between 32 bit and 64 bit applications
+
+32bit system - 32 bit address represenattion - 2^32 memory addresses - 4GB
+64bit system - 64 bit address representation - 2^64 memry addressses - 16 EXAbytes
+
+
+
+-------------------------------------------------------------
+5. Write a small java program (say a "Hello World" program) and put it in a directory.
+ Compile the program and change directory to some other directory and try to execute the class file (This will help
+ you to learn about setting PATH/CLASSPATH variables!).
+
+ set CLASSPATH=C:\Users\Yasin\javapr\s1_q5\temp
+
+
+
+-------------------------------------------------------------
+6. Write a java program to print the size of different data types in
+ java (list all the data types!).
+
+primitive datatyes - byte, char, short, int, long, float, double
+non primitive - String, Arrays, class
+
+
+-------------------------------------------------------------
+7. Write a program to read Input data from command line.
+
+
+
+-------------------------------------------------------------
+8. Write a class with a package statement in it and try to run it.
+
+
+
+
+-------------------------------------------------------------
+9. Write two classes (say "A" and "B") , in class "A" create an instance of class "B".
+ Compile class "A" in some directory "D1" and class "B" in "D2" , now A.class and B.
+class are in two separate directories. Try to run class "A" from directory "D1" 
+(it will say class "B" not found). If you set classpath to both directories then 
+it will work (try it out!)
+10. Set the classpath from the class "A" itself (instead of specifying the classpath
+ in the DOS shell , try to set in in your java program!)
+11. Try to learn the difference between String and StringBuffer classes by
+ writing small programs.
+12. Write java program to reverse a string using StringBuffer class (do not 
+use String class for data manipulation!)
+
+Access Specifiers
+1. Learning about access specifiers (Write java programs to bring about the difference 
+between , public ,private,package and protected specifiers!) 
+2. What is the meaning of declaring a class public? (try this by putting the class 
+in a package and try to access the class from a different package!).
+3. Learning about scope specifiers also what is the difference between instance variable 
+and class variable? Write programs and try using local scope/method scope/member scope
+ variables and how to access them.
+4. Write a java program to print the system properties (Hint : Refer to System class) 
+Try to print the current working directory from you java program.
+5. Is the method main belong to any class? , if not why? , if so what are the access
+ privileges to that method?
+6. Is it possible to have a private class? (write a class and try it out! , 
+try protected also!)
+7. Is it possible to have a private constructor? (write a class and try it out! ) , 
+if possible how do you create an instance of it from another class?
+8. What is the meaning of declaring a variable "static" ? (write a program to bring
+ out the difference between instance and class variables).
+9. What is the meaning of declaring a method "static" ? how do you invoke such a method ?
+10. What is the meaning of declaring a class static?
+11. What is the meaning of declaring a class final?
+12. How do you prevent overriding of a method (can you prevent overloading of a method?)
+13. What are inner classes and anonymous classes? Why they are used?
+14. Is there any difference between an inner class and nested class?
+
+Advanced Concepts
+1. Convert a float value to an integer (float to double etc.) (Hint use wrapper 
+classes, do not typecast them!).
+2. Function overriding & overloading ( Write a set of classes to bring out the difference!)
+3. Write a class and override "toString" method in the class object. 
+(When you write a class "A" does it have any parent? , investigate!).
+4. What is an abstract class , why it is used ? (Write an abstract and try to use it!).
+5. Write an interface and try to bring out diff. between abstract class and an interface!
+ (can I define variables in interfaces?)
+6. What is the difference between a Hashtable and Properties? 
+(Write a program as an example!)
+7. Write a program to print all elements in a Properties object (Using Enumeration!)
+8. Can you remove an element while enumerating through a Properties object? 
+(If so how? If not how will i remove a element while enumerating!)
+9. How to you catch an exception? Write a program to catch a NullPointerException!
+10. How do you throw an exception?
+11. What is the difference between an Error and an Exception?
+12. In java are the parameters passed by reference or by value 
+(Write a program to test for basic data types , arrays ,strings ,string arrays and custom objects !)
+
+I/O Operations
+1. Bring out differences between char streams and byte streams.
+2. What is the format of char data type and why it is platform independent?
+3. How do you convert char streams to byte streams.
+4. Write a program to read from a lengthy string (using streams) 
+and write the output to a file.
+5. Write a program to redirect your print statements (System.out and System.err) 
+to two files stdout.txt and stderr.txt.
+6. Write a program to read a text file (using byte streams) 
+convert the bytes to chars and print the output.
+7.Write a program to get the result for the following
+    In a school(1-10),each class is maintaining a file having data about all 
+the students in a format (Roll###Name###Age###phone).Principal want to generate a 
+file containing data of all the students who is above 10 years old in a 
+format(Name##Age##phone##class)

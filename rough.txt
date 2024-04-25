@@ -1,0 +1,842 @@
+
+variable
+-thousands of varibles are not a gud way of coding
+
+arrays
+-size of arrays are fixed
+-homogenous in nature (stores values of same data type)
+-object array can hold any object inside object array
+	Object arr[]= new Object[];
+	arr[0]="yasin";
+	arr[1]=5;
+	...
+-is not a standard DS so no readymade functions
+
+Collections
+-growable in nature
+-can hold both homogenous and heterogenous objects
+-std DS, so readymade methods available.
+
+--------------------------------------------------------------------
+NOTE
+-if we know the size of elements.. it is highly recommended to use arrays rather than collections..
+--------------------------------------------------------------------
+
+DIFF BET ARRAY AND COLLECTION
+Arrays
+-fixed size
+-with respect to memory.. bad
+-wrt performance.. gud
+-only homogenous
+-no DS..no builtin methods
+-can hold primitives and also objects
+
+Collections
+-growable
+-wrt memory.. gud
+-wrt performance.. bad
+-both homo and hetero
+-std DS.. with builtin methods
+-can hold only objects ,not primitives
+
+--------------------------------------------------------------------
+
+What is a collection?
+	A collection is an object that represents a group of objects in a single entity.
+
+What is a collections framework?
+	In java, the collection framework is a unified architecture for storing and manipulating a group of objects with the help of predefined interfaces and classes.
+
+The main advantages of using the Collections framework:
+-Reduces programming effort by providing predefined data structures and algorithms.
+-Increases performance by efficient data structures.
+
+Basic interfaces are 
+-java.util.Collection
+-java.util.Map
+
+COLLECTION (Interface)
+-collection is the root interface of collection framework
+-collection defines most common methods of any collection object
+
+COLLECTIONS (Class)
+-utility class defining several utility methods for collections objects
+
+--------------------------------------------------------------------
+
+(2)LIST (Interface)
+-child interface of collection
+-duplication of elements is possible
+-insertion order is preserved
+
+			
+			  Collection
+                  |
+				LISTS
+			  /	  \   \
+			 /	   \    \
+			/		\	  \	
+		   /  		 \	 	\ 
+		  /    		  \	  	  \
+	ArrayList    LinkedList	  vector
+								|
+							   Stack
+
+--------------------------------------------------------------------
+
+(3)SET (interface)
+-child interface of collection
+-duplicates or not allowed
+-insertion order is not preserved
+					
+					Collection
+						|
+					   set
+					   	|
+					 HashSet
+					 	|
+				  Linked Hash Set
+
+--------------------------------------------------------------------
+
+(4)Sorted Set (Interface)
+-child interface of set
+-duplication is not allowed
+-maintained in some order
+
+--------------------------------------------------------------------
+
+(5)Navigable set (Interface)
+-child interface of sorted set
+-defines several methods for navigation
+-treeset is the implementation for the navigable set
+
+--------------------------------------------------------------------
+
+(6)QUEUE (Interface)
+-FIFO
+-child interface of collection
+-grp of individual objects prior to processing
+
+--------------------------------------------------------------------
+
+NOTE: all the above interfaces are for individual objects..
+	for name-value pairs we should go for map interface..
+	from here on wards.. nthg implememts the collection interface..
+
+--------------------------------------------------------------------
+
+(7) Map (Interface)
+-map is not a child interface of collection
+-unique keys and duplicated values
+													Dictionary
+							map(I)					   |
+		hashMap    weakhashmap   dentityhashmap   hashtable
+		   |										|
+	LinkedHashmap									properties
+
+--------------------------------------------------------------------
+
+(8)SORTEDMAP (Interface)
+-child interface of map
+-key-value pairs in some sorting order
+
+--------------------------------------------------------------------
+
+(9)Navigable map (Interface)
+-child interface of sorted map
+-utility methods for navigation purpose
+-treeMap is the implementation of Navigable map
+
+--------------------------------------------------------------------
+
+NOTE:
+Comparable (interface) - default natural sorting
+
+Comparator (Interface) - customized sorting order
+	return comparator object which describes underlyting sorting technique.
+	if natural sorting order.. then it returns null.
+
+--------------------------------------------------------------------
+
+fetching data from collections - cursors
+-Enum(I)
+-Iteraot(I)
+-ListIterator(I)
+
+--------------------------------------------------------------------
+
+Utility class
+-Collections
+-arrays
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+COLLECTION (I)
+-grp of individual objects into a single entity
+-collection is the root interface of collection framework
+-collection interface defines the most commmon methods for any collection object.
+
+SOME IMPORTANT METHODS..
+-add(object o) - add an object
+-addAll(Collection c) - add grp of objects
+-remove(object o) - remove an object
+-removeAll(Collection c) - remove grp of objects
+-clear() - clears every data
+-retainAll(Collection c) - all objects are removed except the given grp of objects
+-isEmpty()
+-size()
+-contains(object o) - search 1 object
+-containsAll(Collection c) - search grp of objects
+
+converting collection to array
+-object[] a = c.toArray();
+
+traverse the data
+-Iterator iterator()
+
+NOTE:
+	collection interface doesnot contain any method to retrive objects.
+	Every collection class by default implement serializable interface and cloneable interface.
+
+--------------------------------------------------------------------
+
+List (I) implements Collection(I)
+-child interface of collection
+-duplicates allowed
+-insertion order is preserved
+-we can differentiate duplicates using index
+
+SOME IMPORTANT METHODS..
+ l.add(object o);
+ l.add(int index, object o);
+ addAll(int index, collection c);
+ remove(int index);
+ l.indexOf(object o);  - returns first occurance of the object
+ l.lastIndexOf(object o); - last occurance
+ get(int index);
+ listIterator listIterator();
+ set(int index, object o); - replace object in a location
+ 
+--------------------------------------------------------------------
+
+ArrayList (Class) implements List(I)
+-resizeable or growable array
+-duplicates allowed
+-insertion order is preserved
+-heterogeneous objects	
+NOTE: except treeset and treemap.. every collection is heterogeneous
+-null vaule insertion is allowed
+
+Three constructors are available in ArrayList
+Default Constructor:
+-ArrayList l = new ArrayList();
+	an arraylist of length 10 is created by default.
+	if input data exceeds 10.. then new array of bigger capacity is created.
+		new capacity = (OldCapacity * 3/2) +1
+	ex: 10,16,25,...
+
+parameterized constructor:
+	ArrayList l = new ArrayList(int size);
+
+3rd constructor:
+-any type of collection can be converted to arrayList 
+	ArrayList l = new ArrayList(Collection c);
+
+--------------------------------------------------------------------
+
+Random Access (I):
+-Only arrayList and Vector implements randomAccess interface.
+-present java.util package..
+-it does not contain any methods.. it is a marker interface.
+
+when to use ArrayList:
+-if frequent operation is retrival then ArrayList is best
+	-reason : random access
+
+When not to use ArrayList:
+-if frequent operation is insertion or removal in middle,, then ArrayList is worst
+	-reason : for inserting 1 element , crores of elements must be shifted
+
+--------------------------------------------------------------------
+
+	ArrayList     vs	Vector
+
+-Non-synchronized    	Synchronized
+-No thread safety	   	Thread safe
+-performance high 		perf is low(waiting time of threads)
+-non legacy(1.2v)		legacy(1.0v)
+-inbuilt extension		customizable extension size
+ size
+
+--------------------------------------------------------------------
+
+how to get synchronyced version of AL objects?
+	ArrayList  l1 = new ArrayList();
+	List l = Collections.synchronizedlist(l1);
+
+l1 -- non synchronized
+l  -- synchronized version of AL
+
+public static List synchronizedList(List l); method from collections utility class...
+
+by the same way..
+p s Set synchronizedSet(Set s);
+p s Map synchronizedMap(Map p);
+
+--------------------------------------------------------------------
+
+LinkedList (Class) implements Colection(I)
+-it is basically Doubly linked list
+-insertion order is preserved
+-duplicates are allowed
+-heterogenous elements are allowed
+-null insertion is allowed
+
+-insertion or deletion in middle is the best case operation
+-searching is the worst case (linear search)
+
+methods usefull for LinkedList representation of stack and queue..
+	void addFirst(Object o);
+	void addLast(Object o);
+	Object getFirst();
+	Object getLast();
+	Object removeFirst();
+	Onject removeLast();
+
+Constructors:
+-LinkedList l = new LinkedList();
+-LinkedList l = new LinkedList(Collection c);
+
+--------------------------------------------------------------------
+
+					ArrayList 		LinkedList
+-retrival 			best			worstu
+-insertion/deletion worstu			best
+-DS 				Resizeable/		Doubly linked list
+					growable array
+-random Access 		yes				No					
+
+--------------------------------------------------------------------
+
+Vector(Class) implements Collection(I)
+-resizeable/growable array
+-duplicates are allowed
+-insertion order is preserved
+-null insertion is possible
+-heterogeous objects are allowed
+-implements serializable, cloneable and randomAccess
+-thread safe
+-best if frequent operation is retrival
+
+most used methods..
+	addElements(Object o);
+	removeElement(Object o);
+	removeElementAt(int index);
+	Object getElement();
+	...
+	..
+
+Constructors:
+- Vector v = new Vector();
+	by default it will create length of 10
+	newCapacity = 2 * oldCapacity
+
+- Vector v = new Vector(int size);
+
+- Vector v = new Vector(int initialSize, int incrementalSize);
+
+- Vector v = new Vector(Collection c);	
+
+--------------------------------------------------------------------
+
+Stack(Class) extends Vector(Class)
+-LIFO
+
+constructor:
+Stack s = new Stack();
+
+most used methods:
+-push(Object o);
+-pop();
+-peek();
+-empty();
+-int search(Object o); 		//returns offset position from the top
+
+
+--------------------------------------------------------------------
+				three cursorsss of javaaa
+-if we want to traverse data.. we must use cursors..
+1 - Enum
+2 - Iterator
+3 - ListIterator   // most powerfull
+--------------------------------------------------------------------
+
+Enumeration(I)
+-Enumeration e = v.elements();
+-hasMoreElements();
+-nextElements();
+
+Limitations:
+-enum is applicable only for legacy classes (vector,stack)
+-enum can be used only for read operation... cant perform remove operation.
+
+so we move to iterators..
+--------------------------------------------------------------------
+
+Iterator(I)
+-universal
+-read and remove are available
+
+Iterator i = c.iterator();
+
+methods..
+-boolean hasNext();
+-Object next();
+-void remove();
+
+limitaions:
+-moves only forward diration (single directional cursor)
+-read, remove possible... but not replace and add..
+
+so we move to ListIterators..
+
+--------------------------------------------------------------------
+
+ListIterator(I)
+-bidirectional cursor
+-read, remove, replace, addition are possible
+-child interface of Iterator
+
+ListIterator l = lop.listIterator();
+
+methods..
+forward moving:
+-boolean hasnext();
+-Object next();
+-int nextIndex();
+
+backward moving:
+-boolean hasPrevious();
+-Object previous();
+-int previousIndex();
+
+editing:
+void remove();
+void set(Object newObj);
+void add(Object o);
+
+limitation:
+-applicable only for list classes
+--------------------------------------------------------------------
+
+Comparison of cursors..
+
+--------------------------------------------------------------------
+property		Enumeration 	Iterator 		ListIterator
+--------------------------------------------------------------------
+-applicable for legacy			any collection 	list objects
+
+-movement		forward			forward			Bi directional
+
+-accessibility	ready 			read,remove 	read,remove,add,
+												and replace
+
+-how to get 	elements()		iterator()		listIterator()
+				of Vector 		of Collection 	of List(I)
+				Class 			(I)
+
+-methods 		2 				3 				9
+
+--------------------------------------------------------------------
+
+NOTE:
+	enum, iterator, listiterator all are interfacess.. then how can we create objects of them????
+
+Enum e = v.elements()
+
+internally this happens....
+	class vector
+	{
+		elements()
+		{
+			class someName implements Enum
+			{
+
+			}
+			return someName_obj;
+		}
+	} 
+
+--------------------------------------------------------------------
+
+SET(I) extends Collection(I)
+-java.util package
+-duplicates not allowed
+-insertion order is not maintained
+-nul allowed once
+
+--------------------------------------------------------------------
+
+HashSet(class) implements Set(I)
+-child interface of collection
+-underlyting DS is hashTable
+-duplicates are not allowed
+-insertion order is not preserved
+-set has no new methods..
+-heterogeneuos
+-null allowed
+-implements serializable and Cloneable
+-searching - bestcase
+
+constructor:
+
+HashSet h = new HashSet();
+		default size 16
+		fill ratio/load factor is 0.75
+			after filling 75% of HashSet, the hashset is extended
+
+HashSet h = new HashSet(int size);
+
+HashSet h = new HashSet(int size, float loadFactor);
+
+hashSet h = new HashSet(Collection c);
+
+--------------------------------------------------------------------
+
+LinkedHashSet(class) extends HashSet(Class) 
+-child class of HashSet
+-v1.4
+-duplicates are not allowed
+-insertion order is preserved   // only dif between HashSet and LHS
+-underlying DS is HashTable+LinkedList
+
+-cache based terminology
+	duplicates not allowed
+	order must be preserved
+
+--------------------------------------------------------------------
+
+SortedSet(I) implements Set(I)
+-child interface of Set
+-duplicates are not allowed
+-in some sorted order
+
+consider a sortedSet [100, 101, 103, 104, 107, 110, 115]
+methods:
+first() - 100
+last() - 115
+headSet(104) - 100, 101, 103
+tailSet(104) - 104, 107, 110, 115
+subSet(103,110) - 103, 104, 107
+comparator()
+	return comparator object which describes underlyting sorting technique.
+	if natural sorting order.. then it returns null.
+	used by TreeSet
+
+--------------------------------------------------------------------
+
+TreeSet(class) implements navigableSet(I)
+-child class of SortedSet
+-underlting DS is balanced tree
+-duplicates are not allowed
+-insertion order is not preserved
+-some sorting order is maintained
+-heterogenous objects are not allowed
+-null accepted only once
+
+constructors:
+TreeSet t = new TreeSet();
+	default natural sorting order
+
+TreeSet t = new TreeSet(Comparator c);
+	customized sorting
+
+TreeSet t = new TreeSet(Collection c);
+
+TreeSet t = new TreeSet(SortedSet s);
+
+--------------------------------------------------------------------
+		Comparable(I) 						Comparator(I)
+--------------------------------------------------------------------
+-default natural sorting order		customized sorting order
+
+-java.lang							java.util
+
+-compareTo()						compare(), equals()
+
+-all wrapper classes				Collator, RuleBasedCollator 
+and string class implements 		implements comparator
+comparable
+--------------------------------------------------------------------
+
+
+--------------------------------------------------------------------
+properties		HashSet 		LHS 			TreeSet
+--------------------------------------------------------------------
+-DS 			hashTable 		Hashtree+		Balanced Tree
+								LinkedList
+
+-insertion		No 				yes 			No
+order
+
+-sorting		No 				No 				Yes 
+order
+
+-heterogenous 	Yes 			Yes 			No
+
+-Duplication	No 				No 				No
+
+-null 			yes(once)		yes(once)		yes(first elemt of 													empty treeSet) 		
+--------------------------------------------------------------------
+
+Queue(I) implements Collection(I)
+-FIFO
+-child interface of collection
+-grp of individual objects prior to processing
+
+methods:
+-offer(Object o);
+-poll(); - remove and return head - if queue is empty then returns null
+-remove(); - same as poll - if queue is empty, then rise NoSuchElementException
+peek() - return head - - if queue is empty then returns null
+element() - return head - - if queue is empty, then rise NoSuchElementException
+
+
+--------------------------------------------------------------------
+
+PriorityQueue(C) implements Queue(I)
+-the objects are processed according to some priorities
+-priority may be DNSO or CustomSO
+-null values are not allowed
+-duplicates are not allowed
+-if DNSO - homo and comparable
+-if CustomSO - hetero is possible
+
+constructors:
+PriorityQueue pq = new PriorityQueue(Collection c);
+..
+..6 constructors
+
+methods;;
+boolean add(Object o); - adds object in the nnatural sorting order
+peek(); - gives the top element of the queue
+poll(); - gives the top element and removes from the queue
+
+-priorityQueue is not thread safe so we move to PriorityBlockingQueue
+
+------------------------------------------------------------------------
+
+Deque(I) extends Queue(I)
+-double ended queue
+-add/delete elements from both ends
+
+------------------------------------------------------------------------
+
+ArrayDeque(C) implements Deque(I)
+-ArrayDeque is faster than ArrayList and Stack 
+-has no capacity restrictions
+
+methods:
+addFirst(Object o);
+addLast(Object o);
+removeFirst();
+removeLast();
+pollFirst();
+polllast();
+
+-not thread safe
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+Map(I)
+-not chil interface of collection(I)
+-key,value pair
+-only unique keys
+-values can be duplicates
+-each pair is called entry
+-if inserting entry withh duplicate key,, then old value is replaced
+
+methods:
+-Object put(Object key, Object val);
+	if replace happens - returns the old value
+	else return NULL
+
+-putAll(Map m);
+-get(key) - value is returned else NULL
+-remove(key) - entry is removed
+-containsKey(key) 
+-containsValue(value)
+-empty()
+-size()
+-clear() - truncation
+-Set keySet() - returns all keys
+-Collection values() - returns al values
+-Set entrySet() - returns entries
+
+--------------------------------------------------------------------
+
+HashMap(Class)
+-underlyting DS HashTable
+-insertion order is not preserved
+-order is based on hashcode of keys
+-duplicate keys not allowed, but values allowed
+-heterogenous
+-null key once, null value any times
+-serializable, cloneable but not randomAccess
+-best for search
+
+constructor:
+-HashMap m = new HashMap();
+	size -16
+	filling ratio 0.75
+-HashMap m = new HashMap(int size); 
+-HashMap m = new HashMap(int size, float fillRatio);
+-HashMap m = new HashMap(Map tm); // interconversion
+
+--------------------------------------------------------------------
+				HashMap 					HashTable
+--------------------------------------------------------------------
+-not synchronized 					synchronized
+
+-not thread safe 					thread safe
+
+-perf is high 						perf if slow (thread waiting)
+
+-null key allowed(once)				Null not allowed
+ null value allowed  		
+
+-not legacy(v1.2)					legacy(v1.0)
+
+--------------------------------------------------------------------
+
+how to get synchronyced version of HashMap objects?
+
+HashMap m = new HashMap();
+Map m1 = Collection.synchronizedMap(m);
+
+-------------------------------------------------------------------
+
+LinkHashMap(class) extends HashMap(class)
+-child class of HashMap
+-exactly same as HashMap(includeing methods and constructors)
+-only differences are
+--------------------------------------------------------------------
+				HashMap 					LinkedHashmap
+--------------------------------------------------------------------
+-DS is HashTable 					-linkedlist+HashTable
+
+-insertion order is not 			-insertion order preserved
+ preserved and it is based
+ on hashcode
+
+ -v1.2 								-v1.4
+--------------------------------------------------------------------
+
+NOTE:
+	'==' operator meant for reference(address) comparision
+	'equals()' method meant for content comparision 
+
+--------------------------------------------------------------------
+
+IdentityHashMap(C) extends HashMap(C)
+-exactly same as hashMap(including methods and cons)
+ except the following difference..
+		-HashMap will use .equals() to find duplicate values
+		-in identity hashMap JVM use '==' operator
+
+--------------------------------------------------------------------
+
+SortedMap(I) extends Map(I)
+-child interface of Map
+-key, value pairs in some sorting order of keys
+
+methods:(All methods of SortedSet)
+-Object firstKey() 
+-Object lastKey()
+-SortedMap headMap(key)
+-SortedMap tailMap(key)
+-SortedMap subMap(key1, key2)
+-Comparator comparator() - return comparator object
+				if DNSO, then return null
+
+--------------------------------------------------------------------
+
+TreeMap(C) implements SortedMap(I)
+-underlying DS is Red-Black tree
+-insertion order not preserved
+-in some sorting order of keys
+-duplicate keys not allowed, values allowed
+-DNSO keys should homo and comparable
+-if cusSO hetero and non-comparable is possible
+-null key is possible only in empty tree
+
+constructor:
+-TreeMap t = new TreeMap()
+	DNSO of keys
+-TreeMap t = new TreeMap(Comparator c);
+	custSO of keys
+-TreeMap t = new TreeMap(Map p);
+	copy
+-TreeMap t = new TreeMap(SortedMap s);
+
+--------------------------------------------------------------------
+
+HashTable
+-underlying DS HashTable
+-insertion order is not preserved
+	order is based on hashcode of the keys
+-duplicate keys are not allowed, values can be duplicated
+-hetero is allowed for both key and value
+-null is not allowed anywhere
+-implements serializable, cloneable but not randomAccess
+-methods are synchronozed, so thread safe
+-best for search
+
+constructors:
+-HashTable h = new HashTable();
+	capacity 11
+	fill ratio 0.75
+-HashTable h = new HashTable(int size);
+-Hashtable h = new HashTable(int size, float fillRatio);
+-HashTable h = new HashTable(Map m);
+
+--------------------------------------------------------------------
+
+Properties(C)
+-anything which changes frequently can be configured in properties file.
+-re-compilation, rebuild, redeploy are eliminated.
+-no dynmaic software is available without properties file.
+-properties in properties file can be loaded in properties object
+-java.util package
+
+constructor:
+-Properties p = new Properties();
+	both key and value should be string
+
+methods:
+-String getProperty(String propName); - gives prop Value
+
+-String setProperty(String propName, String propValue) - adds new prop
+	if duplicate key,, then replaces value and return old value
+
+-Enumeration propertyName(); - returns all property names
+
+-load(InputStream is) - prop file to propObj
+
+-store(OutputStream os,String comment) - changes from propObj to prop File
+
+--------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
